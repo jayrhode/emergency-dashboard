@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winmar Emergency Dashboard — March 28, 2026</title>
+<style>
+  :root{
+    --bg:#0f172a;--surf:#1e293b;--surf2:#263346;--bdr:#334155;
+    --tx:#f1f5f9;--muted:#94a3b8;
+    --green:#22c55e;--green-bg:rgba(34,197,94,.1);
+    --blue:#3b82f6;--purple:#a855f7;--orange:#f97316;
+    --amber:#f59e0b;--red:#ef4444;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        background:var(--bg);color:var(--tx);min-height:100vh}
+
+  /* ── Topbar ── */
+  .topbar{background:var(--surf);border-bottom:1px solid var(--bdr);
+           padding:14px 32px;display:flex;align-items:center;gap:12px;
+           position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.3)}
+  .logo{font-size:19px;font-weight:700;letter-spacing:-.5px}
+  .logo em{color:var(--orange);font-style:normal}
+  .report-meta{margin-left:auto;font-size:12px;color:var(--muted);text-align:right;line-height:1.5}
+
+  /* ── KPI strip — 4 cards ── */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+         padding:24px 32px;max-width:1500px;margin:0 auto}
+  .kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;
+        padding:20px 24px;position:relative;overflow:hidden}
+  .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .kpi.k-new::before    {background:var(--green)}
+  .kpi.k-progress::before{background:var(--orange)}
+  .kpi.k-month::before  {background:var(--blue)}
+  .kpi.k-closed::before {background:var(--purple)}
+  .kpi-lbl{font-size:11px;font-weight:600;text-transform:uppercase;
+             letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
+  .kpi-num{font-size:52px;font-weight:800;line-height:1;letter-spacing:-2px}
+  .k-new .kpi-num      {color:var(--green)}
+  .k-progress .kpi-num {color:var(--orange)}
+  .k-month .kpi-num    {color:var(--blue)}
+  .k-closed .kpi-num   {color:var(--purple)}
+  .kpi-sub{font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* ── Layout ── */
+  .layout{display:grid;grid-template-columns:210px 1fr;
+           max-width:1500px;margin:0 auto;padding:0 32px 56px}
+
+  /* ── Sidebar ── */
+  .sidebar{padding:8px 16px 8px 0;position:sticky;top:65px;
+            height:fit-content;max-height:calc(100vh - 90px);overflow-y:auto}
+  .side-title{font-size:11px;font-weight:600;text-transform:uppercase;
+               letter-spacing:.8px;color:var(--muted);margin-bottom:8px;padding:4px 0}
+  .nav-pill{display:flex;align-items:center;gap:8px;padding:7px 10px;
+             border-radius:8px;text-decoration:none;color:var(--muted);
+             font-size:13px;margin-bottom:3px;transition:background .12s}
+  .nav-pill:hover{background:var(--surf2);color:var(--tx)}
+  .nav-init{width:24px;height:24px;border-radius:6px;background:var(--pill-color,#555);
+             color:#fff;font-size:10px;font-weight:700;
+             display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .nav-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nav-ct{background:var(--surf2);border-radius:10px;padding:1px 7px;
+           font-size:11px;color:var(--muted);flex-shrink:0}
+
+  /* ── Estimator cards ── */
+  .feed{display:flex;flex-direction:column;gap:20px;min-width:0}
+  .est-card{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;overflow:hidden}
+  .card-hdr{display:flex;align-items:center;gap:12px;padding:13px 20px;
+             border-bottom:1px solid var(--bdr);border-left:4px solid var(--cc,#555)}
+  .avatar{width:36px;height:36px;border-radius:10px;background:var(--cc,#555);
+           color:#fff;font-size:13px;font-weight:700;
+           display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .card-name{font-size:15px;font-weight:600}
+  .card-sub{font-size:12px;color:var(--muted)}
+
+  /* ── Table ── */
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:8px 14px;font-size:11px;font-weight:600;
+      text-transform:uppercase;letter-spacing:.5px;color:var(--muted);
+      background:rgba(0,0,0,.2);border-bottom:1px solid var(--bdr)}
+  td{padding:10px 14px;border-bottom:1px solid rgba(51,65,85,.5);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr.row-new{background:var(--green-bg)}
+  tr:hover td{background:rgba(255,255,255,.02)}
+  .td-job{font-family:monospace;font-weight:600;white-space:nowrap}
+  .td-desc{color:var(--muted);max-width:300px}
+  .td-loc{color:var(--muted);white-space:nowrap}
+  .td-days{font-weight:700;text-align:center;white-space:nowrap}
+  .age-ok{color:var(--green)}
+  .age-warning{color:var(--amber)}
+  .age-critical{color:var(--red)}
+  .badge-new{display:inline-block;background:var(--green);color:#fff;
+              font-size:9px;font-weight:800;letter-spacing:.5px;
+              padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
+
+  /* ── Footer ── */
+  .footer{text-align:center;padding:20px 32px;color:var(--muted);
+           font-size:12px;border-top:1px solid var(--bdr);max-width:1500px;margin:0 auto}
+
+  @media(max-width:1000px){
+    .kpis{grid-template-columns:repeat(2,1fr);padding:16px}
+    .layout{grid-template-columns:1fr;padding:0 16px 48px}
+    .sidebar{display:none}
+  }
+  @media(max-width:500px){
+    .kpis{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Winmar <em>Emergency</em> Dashboard</div>
+  <div class="report-meta">
+    Report date: March 28, 2026 &nbsp;·&nbsp; 10 active files<br>
+    <span style="font-size:11px;opacity:.7">Updated 2026-03-29 14:17</span>
+  </div>
+</div>
+
+<div class="kpis">
+  <div class="kpi k-new">
+    <div class="kpi-lbl">New Today</div>
+    <div class="kpi-num">10</div>
+    <div class="kpi-sub">First appearance in today's report</div>
+  </div>
+  <div class="kpi k-progress">
+    <div class="kpi-lbl">In Progress</div>
+    <div class="kpi-num">10</div>
+    <div class="kpi-sub">Active jobs on today's report</div>
+  </div>
+  <div class="kpi k-month">
+    <div class="kpi-lbl">Total This Month</div>
+    <div class="kpi-num">10</div>
+    <div class="kpi-sub">Unique jobs opened in March</div>
+  </div>
+  <div class="kpi k-closed">
+    <div class="kpi-lbl">Closed This Month</div>
+    <div class="kpi-num">0</div>
+    <div class="kpi-sub">Resolved and removed this month</div>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="side-title">Estimators</div>
+    
+        <a href="#Jaime_Lynn_Oliver" class="nav-pill" style="--pill-color:#2563EB;">
+          <span class="nav-init">JO</span>
+          <span class="nav-name">Jaime-Lynn Oliver</span>
+          <span class="nav-ct">5</span>
+        </a>
+        <a href="#James_Appleton" class="nav-pill" style="--pill-color:#7C3AED;">
+          <span class="nav-init">JA</span>
+          <span class="nav-name">James Appleton</span>
+          <span class="nav-ct">1</span>
+        </a>
+        <a href="#Janessa_Brown" class="nav-pill" style="--pill-color:#059669;">
+          <span class="nav-init">JB</span>
+          <span class="nav-name">Janessa Brown</span>
+          <span class="nav-ct">2</span>
+        </a>
+        <a href="#Tyler_Helms" class="nav-pill" style="--pill-color:#D97706;">
+          <span class="nav-init">TH</span>
+          <span class="nav-name">Tyler Helms</span>
+          <span class="nav-ct">2</span>
+        </a>
+  </nav>
+  <div class="feed">
+    
+      <section class="est-card" id="Jaime_Lynn_Oliver">
+        <div class="card-hdr" style="--cc:#2563EB;">
+          <div class="avatar">JO</div>
+          <div>
+            <div class="card-name">Jaime-Lynn Oliver</div>
+            <div class="card-sub">5 active jobs</div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Job #</th><th>Customer</th><th>Location</th>
+              <th>Description</th><th>Age</th>
+            </tr></thead>
+            <tbody>
+              <tr class="row-new">
+                <td class="td-job">10592E<span class="badge-new">NEW</span></td>
+                <td>SD23 Central Secondary School</td>
+                <td class="td-loc">1825 Richter St, Kelowna</td>
+                <td class="td-desc">Flood crawlspace in gym</td>
+                <td class="td-days age-critical">144d</td>
+              </tr>
+              <tr class="row-new">
+                <td class="td-job">10727E<span class="badge-new">NEW</span></td>
+                <td>Ahuja, Gagan</td>
+                <td class="td-loc">531 Hein Road, Kelowna</td>
+                <td class="td-desc">Roof leak.</td>
+                <td class="td-days age-warning">33d</td>
+              </tr>
+              <tr class="row-new">
+                <td class="td-job">10740E<span class="badge-new">NEW</span></td>
+                <td>SD23 - Glenrosa Middle School</td>
+                <td class="td-loc">2974 Glen Abbey Pl, West Kelowna</td>
+                <td class="td-desc">Roof leak into library ceiling.</td>
+                <td class="td-days age-ok">22d</td>
+              </tr>
+              <tr class="row-new">
+                <td class="td-job">10764E<span class="badge-new">NEW</span></td>
+                <td>Swecera, Bren</td>
+                <td class="td-loc">107 - 515 Wren Place, Kelowna</td>
+                <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners.
+Hardwood flooring has since started lifting in the kitche…</td>
+                <td class="td-days age-ok">3d</td>
+              </tr>
+              <tr class="row-new">
+                <td class="td-job">10760ISP<span class="badge-new">NEW</span></td>
+                <td>0927625 B.C. Ltd</td>
+                <td class="td-loc">1336 Sutherland Avenue, Kelowna</td>
+                <td class="td-desc">Upper level plumbing stack leaked within wall, hit bottom plate, leaked out into
+lower unit onto laminate floor. Sewer line repair…</td>
+                <td class="td-days age-ok">2d</td>
+              </tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="est-card" id="James_Appleton">
+        <div class="card-hdr" style="--cc:#7C3AED;">
+          <div class="avatar">JA</div>
+          <div>
+            <div class="card-name">James Appleton</div>
+            <div class="card-sub">1 active job</div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Job #</th><th>Customer</th><th>Location</th>
+              <th>Description</th><th>Age</th>
+            </tr></thead>
+            <tbody>
+              <tr class="row-new">
+                <td class="td-job">10752E<span class="badge-new">NEW</span></td>
+                <td>Anthem Properties</td>
+                <td class="td-loc">3031 Louie Drive, Westbank</td>
+                <td class="td-desc">Building owners to the Arby's fire 10726</td>
+                <td class="td-days age-ok">11d</td>
+              </tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="est-card" id="Janessa_Brown">
+        <div class="card-hdr" style="--cc:#059669;">
+          <div class="avatar">JB</div>
+          <div>
+            <div class="card-name">Janessa Brown</div>
+            <div class="card-sub">2 active jobs</div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Job #</th><th>Customer</th><th>Location</th>
+              <th>Description</th><th>Age</th>
+            </tr></thead>
+            <tbody>
+              <tr class="row-new">
+                <td class="td-job">10749E<span class="badge-new">NEW</span></td>
+                <td>Hapke, Clayton</td>
+                <td class="td-loc">304-1093 Sunset Drive, Kelowna</td>
+                <td class="td-desc">Water leak</td>
+                <td class="td-days age-ok">16d</td>
+              </tr>
+              <tr class="row-new">
+                <td class="td-job">10765E<span class="badge-new">NEW</span></td>
+                <td>Patrick, Darin</td>
+                <td class="td-loc">214-1093 Sunset Drive, Kelowna</td>
+                <td class="td-desc">Water leak - Source is a supply issue from upstairs unit #314</td>
+                <td class="td-days age-ok">1d</td>
+              </tr></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="est-card" id="Tyler_Helms">
+        <div class="card-hdr" style="--cc:#D97706;">
+          <div class="avatar">TH</div>
+          <div>
+            <div class="card-name">Tyler Helms</div>
+            <div class="card-sub">2 active jobs</div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Job #</th><th>Customer</th><th>Location</th>
+              <th>Description</th><th>Age</th>
+            </tr></thead>
+            <tbody>
+              <tr class="row-new">
+                <td class="td-job">10675M<span class="badge-new">NEW</span></td>
+                <td>Sherwood Manor</td>
+                <td class="td-loc">101B-510 Rosemead Ave, Kelowna</td>
+                <td class="td-desc">Inspection for mould</td>
+                <td class="td-days age-warning">71d</td>
+              </tr>
+              <tr class="row-new">
+                <td class="td-job">10763E<span class="badge-new">NEW</span></td>
+                <td>Morawsky, Karna</td>
+                <td class="td-loc">#151-1405 Guisachan Place, Kelowna</td>
+                <td class="td-desc">Water mark on basement ceiling below ensuite. Plumber came in and found stain
+was damp. Did no work but suggested check for mould.…</td>
+                <td class="td-days age-ok">2d</td>
+              </tr></tbody>
+          </table>
+        </div>
+      </section>
+  </div>
+</div>
+
+<div class="footer">
+  Refreshed daily at 4:15 PM &nbsp;·&nbsp; Winmar Restoration &nbsp;·&nbsp; 2026-03-29 14:17
+</div>
+</body>
+</html>
