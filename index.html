@@ -15,12 +15,34 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
         background:var(--bg);color:var(--tx);min-height:100vh}
+
+  /* ── Password gate ── */
+  #gate{position:fixed;inset:0;background:var(--bg);z-index:9999;
+        display:flex;align-items:center;justify-content:center}
+  .gate-box{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;
+             padding:40px 48px;width:360px;text-align:center}
+  .gate-logo{font-size:20px;font-weight:700;margin-bottom:6px}
+  .gate-logo em{color:var(--orange);font-style:normal}
+  .gate-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+  .gate-input{width:100%;background:var(--surf2);border:1px solid var(--bdr);
+               border-radius:8px;padding:11px 14px;color:var(--tx);
+               font-size:15px;outline:none;margin-bottom:12px;letter-spacing:2px}
+  .gate-input:focus{border-color:var(--orange)}
+  .gate-btn{width:100%;background:var(--orange);color:#fff;border:none;
+             border-radius:8px;padding:12px;font-size:15px;font-weight:600;
+             cursor:pointer;transition:opacity .15s}
+  .gate-btn:hover{opacity:.88}
+  .gate-err{color:var(--red);font-size:13px;margin-top:10px;min-height:18px}
+
+  /* ── Topbar ── */
   .topbar{background:var(--surf);border-bottom:1px solid var(--bdr);
            padding:14px 32px;display:flex;align-items:center;gap:12px;
            position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.3)}
   .logo{font-size:19px;font-weight:700;letter-spacing:-.5px}
   .logo em{color:var(--orange);font-style:normal}
   .report-meta{margin-left:auto;font-size:12px;color:var(--muted);text-align:right;line-height:1.5}
+
+  /* ── KPI strip ── */
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
          padding:24px 32px;max-width:1500px;margin:0 auto}
   .kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;
@@ -38,8 +60,12 @@
   .k-month .kpi-num    {color:var(--blue)}
   .k-closed .kpi-num   {color:var(--purple)}
   .kpi-sub{font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* ── Layout ── */
   .layout{display:grid;grid-template-columns:210px 1fr;
            max-width:1500px;margin:0 auto;padding:0 32px 56px}
+
+  /* ── Sidebar ── */
   .sidebar{padding:8px 16px 8px 0;position:sticky;top:65px;
             height:fit-content;max-height:calc(100vh - 90px);overflow-y:auto}
   .side-title{font-size:11px;font-weight:600;text-transform:uppercase;
@@ -54,6 +80,8 @@
   .nav-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-ct{background:var(--surf2);border-radius:10px;padding:1px 7px;
            font-size:11px;color:var(--muted);flex-shrink:0}
+
+  /* ── Estimator cards ── */
   .feed{display:flex;flex-direction:column;gap:20px;min-width:0}
   .est-card{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;overflow:hidden}
   .card-hdr{display:flex;align-items:center;gap:12px;padding:13px 20px;
@@ -63,6 +91,8 @@
            display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .card-name{font-size:15px;font-weight:600}
   .card-sub{font-size:12px;color:var(--muted)}
+
+  /* ── Table ── */
   .tbl-wrap{overflow-x:auto}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th{text-align:left;padding:8px 14px;font-size:11px;font-weight:600;
@@ -82,8 +112,11 @@
   .badge-new{display:inline-block;background:var(--green);color:#fff;
               font-size:9px;font-weight:800;letter-spacing:.5px;
               padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
+
+  /* ── Footer ── */
   .footer{text-align:center;padding:20px 32px;color:var(--muted);
            font-size:12px;border-top:1px solid var(--bdr);max-width:1500px;margin:0 auto}
+
   @media(max-width:1000px){
     .kpis{grid-template-columns:repeat(2,1fr);padding:16px}
     .layout{grid-template-columns:1fr;padding:0 16px 48px}
@@ -95,6 +128,38 @@
 </style>
 </head>
 <body>
+
+<!-- Password gate -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">Winmar <em>Emergency</em> Dashboard</div>
+    <div class="gate-sub">Enter password to continue</div>
+    <input id="pwd" class="gate-input" type="password" placeholder="Password" autofocus
+           onkeydown="if(event.key==='Enter')unlock()">
+    <button class="gate-btn" onclick="unlock()">Access Dashboard</button>
+    <div id="gate-err" class="gate-err"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(sessionStorage.getItem('wd_auth')==='1'){
+    document.getElementById('gate').style.display='none';
+  }
+})();
+function unlock(){
+  var p=document.getElementById('pwd').value;
+  if(p==='restore123'){
+    sessionStorage.setItem('wd_auth','1');
+    document.getElementById('gate').style.display='none';
+  } else {
+    document.getElementById('gate-err').textContent='Incorrect password. Try again.';
+    document.getElementById('pwd').value='';
+    document.getElementById('pwd').focus();
+  }
+}
+</script>
+
 <div class="topbar">
   <div class="logo">Winmar <em>Emergency</em> Dashboard</div>
   <div class="report-meta">
@@ -102,6 +167,7 @@
     <span style="font-size:11px;opacity:.7">Updated 2026-03-29 14:17</span>
   </div>
 </div>
+
 <div class="kpis">
   <div class="kpi k-new">
     <div class="kpi-lbl">New Today</div>
@@ -124,6 +190,7 @@
     <div class="kpi-sub">Resolved and removed this month</div>
   </div>
 </div>
+
 <div class="layout">
   <nav class="sidebar">
     <div class="side-title">Estimators</div>
@@ -297,6 +364,7 @@
     </section>
   </div>
 </div>
+
 <div class="footer">
   Refreshed daily at 4:15 PM &nbsp;·&nbsp; Winmar Restoration &nbsp;·&nbsp; 2026-03-29 14:17
 </div>
