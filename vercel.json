@@ -1,10 +1,3 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "emergency_dashboard.html", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/", "dest": "/emergency_dashboard.html" },
-    { "src": "/(.*)", "dest": "/emergency_dashboard.html" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
