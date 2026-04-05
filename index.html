@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winmar Emergency Dashboard — April 4, 2026</title>
+<title>Winmar Emergency Dashboard â April 5, 2026</title>
 <style>
   :root{
     --bg:#0f172a;--surf:#1e293b;--surf2:#263346;--bdr:#334155;
@@ -15,8 +15,6 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
         background:var(--bg);color:var(--tx);min-height:100vh}
-
-  /* ── Password Gate ── */
   #gate{position:fixed;inset:0;background:var(--bg);z-index:9999;
         display:flex;align-items:center;justify-content:center}
   .gate-box{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;
@@ -32,16 +30,12 @@
                     padding:10px;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
   .gate-box button:hover{opacity:.9}
   .gate-err{color:var(--red);font-size:13px;margin-top:8px;display:none}
-
-  /* ── Topbar ── */
   .topbar{background:var(--surf);border-bottom:1px solid var(--bdr);
            padding:14px 32px;display:flex;align-items:center;gap:12px;
            position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.3)}
   .logo{font-size:19px;font-weight:700;letter-spacing:-.5px}
   .logo em{color:var(--orange);font-style:normal}
   .report-meta{margin-left:auto;font-size:12px;color:var(--muted);text-align:right;line-height:1.5}
-
-  /* ── KPI strip ── */
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
          padding:24px 32px;max-width:1500px;margin:0 auto}
   .kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;
@@ -59,12 +53,8 @@
   .k-month .kpi-num    {color:var(--blue)}
   .k-closed .kpi-num   {color:var(--purple)}
   .kpi-sub{font-size:12px;color:var(--muted);margin-top:6px}
-
-  /* ── Layout ── */
   .layout{display:grid;grid-template-columns:210px 1fr;
            max-width:1500px;margin:0 auto;padding:0 32px 56px}
-
-  /* ── Sidebar ── */
   .sidebar{padding:8px 16px 8px 0;position:sticky;top:65px;
             height:fit-content;max-height:calc(100vh - 90px);overflow-y:auto}
   .side-title{font-size:11px;font-weight:600;text-transform:uppercase;
@@ -79,8 +69,6 @@
   .nav-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nav-ct{background:var(--surf2);border-radius:10px;padding:1px 7px;
            font-size:11px;color:var(--muted);flex-shrink:0}
-
-  /* ── Estimator cards ── */
   .feed{display:flex;flex-direction:column;gap:20px;min-width:0}
   .est-card{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;overflow:hidden}
   .card-hdr{display:flex;align-items:center;gap:12px;padding:13px 20px;
@@ -90,8 +78,6 @@
            display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .card-name{font-size:15px;font-weight:600}
   .card-sub{font-size:12px;color:var(--muted)}
-
-  /* ── Table ── */
   .tbl-wrap{overflow-x:auto}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th{text-align:left;padding:8px 14px;font-size:11px;font-weight:600;
@@ -111,11 +97,8 @@
   .badge-new{display:inline-block;background:var(--green);color:#fff;
               font-size:9px;font-weight:800;letter-spacing:.5px;
               padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
-
-  /* ── Footer ── */
   .footer{text-align:center;padding:20px 32px;color:var(--muted);
            font-size:12px;border-top:1px solid var(--bdr);max-width:1500px;margin:0 auto}
-
   @media(max-width:1000px){
     .kpis{grid-template-columns:repeat(2,1fr);padding:16px}
     .layout{grid-template-columns:1fr;padding:0 16px 48px}
@@ -161,21 +144,21 @@
 <div class="topbar">
   <div class="logo">Winmar <em>Emergency</em> Dashboard</div>
   <div class="report-meta">
-    Report date: April 4, 2026 &nbsp;&middot;&nbsp; 11 active files<br>
-    <span style="font-size:11px;opacity:.7">Updated 2026-04-04 16:20</span>
+    Report date: April 5, 2026 &nbsp;&middot;&nbsp; 11 active files<br>
+    <span style="font-size:11px;opacity:.7">Updated 2026-04-05 16:20</span>
   </div>
 </div>
 
 <div class="kpis">
   <div class="kpi k-new">
     <div class="kpi-lbl">New Today</div>
-    <div class="kpi-num">1</div>
-    <div class="kpi-sub">First appearance in today's report</div>
+    <div class="kpi-num">0</div>
+    <div class="kpi-sub">First appearance in today&#x27;s report</div>
   </div>
   <div class="kpi k-progress">
     <div class="kpi-lbl">In Progress</div>
     <div class="kpi-num">11</div>
-    <div class="kpi-sub">Active jobs on today's report</div>
+    <div class="kpi-sub">Active jobs on today&#x27;s report</div>
   </div>
   <div class="kpi k-month">
     <div class="kpi-lbl">Total This Month</div>
@@ -222,7 +205,7 @@
 
   <div class="feed">
 
-    <!-- Jaime-Lynn Oliver — 3 jobs -->
+    <!-- Jaime-Lynn Oliver â 3 jobs -->
     <section class="est-card" id="Jaime_Lynn_Oliver">
       <div class="card-hdr" style="--cc:#2563EB;">
         <div class="avatar">JO</div>
@@ -256,15 +239,14 @@
               <td class="td-job">10760ISP</td>
               <td>0927625 B.C. Ltd.</td>
               <td class="td-loc">1336 Sutherland Avenue, Kelowna</td>
-              <td class="td-desc">Upper level plumbing stack leaked within wall, hit bottom plate, leaked out into
-lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
+              <td class="td-desc">Upper level plumbing stack leaked within wall, hit bottom plate, leaked out into lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
               <td class="td-days age-ok">2d</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
-    <!-- James Appleton — 1 job -->
+    <!-- James Appleton â 1 job -->
     <section class="est-card" id="James_Appleton">
       <div class="card-hdr" style="--cc:#7C3AED;">
         <div class="avatar">JA</div>
@@ -291,7 +273,7 @@ lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
         </table>
       </div>
     </section>
-    <!-- Janessa Brown — 3 jobs -->
+    <!-- Janessa Brown â 3 jobs -->
     <section class="est-card" id="Janessa_Brown">
       <div class="card-hdr" style="--cc:#059669;">
         <div class="avatar">JB</div>
@@ -332,7 +314,7 @@ lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
         </table>
       </div>
     </section>
-    <!-- Sandy Rehaume — 1 job -->
+    <!-- Sandy Rehaume â 1 job -->
     <section class="est-card" id="Sandy_Rehaume">
       <div class="card-hdr" style="--cc:#D97706;">
         <div class="avatar">SR</div>
@@ -348,20 +330,18 @@ lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
             <th>Description</th><th>Age</th>
           </tr></thead>
           <tbody>
-            <tr class="row-new">
-              <td class="td-job">10771-EMG<span class="badge-new">NEW</span></td>
+            <tr>
+              <td class="td-job">10771-EMG</td>
               <td>McCaw, Darlene</td>
               <td class="td-loc">209 - 665 Cook Road, Kelowna</td>
-              <td class="td-desc">water escape from furnace/ac line saturation of wood floor in laundry room and
-unfinished crawlspace below.
-Requesting emergency services</td>
+              <td class="td-desc">water escape from furnace/ac line saturation of wood floor in laundry room and unfinished crawlspace below. Requesting emergency services</td>
               <td class="td-days age-ok">1d</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
-    <!-- Tyler Helms — 3 jobs -->
+    <!-- Tyler Helms â 3 jobs -->
     <section class="est-card" id="Tyler_Helms">
       <div class="card-hdr" style="--cc:#DC2626;">
         <div class="avatar">TH</div>
@@ -381,26 +361,21 @@ Requesting emergency services</td>
               <td class="td-job">10718E</td>
               <td>Glenvalley KAS3850</td>
               <td class="td-loc">70-600 Boynton Place, Kelowna</td>
-              <td class="td-desc">active water leak half way up the staircase. Schedule for attendance within
-business hours Tuesday morning</td>
+              <td class="td-desc">active water leak half way up the staircase. Schedule for attendance within business hours Tuesday morning</td>
               <td class="td-days age-warning">46d</td>
             </tr>
             <tr>
               <td class="td-job">10764E</td>
               <td>Swecera, Bren</td>
               <td class="td-loc">107 - 515 Wren Place, Kelowna</td>
-              <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners.
-Hardwood flooring has since started lifting in the kitchen. Insurer advised
-homeowner to call us.</td>
+              <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners. Hardwood flooring has since started lifting in the kitchen. Insurer advised homeowner to call us.</td>
               <td class="td-days age-ok">10d</td>
             </tr>
             <tr>
               <td class="td-job">10764R</td>
               <td>Swecera, Bren</td>
               <td class="td-loc">107 - 515 Wren Place, Kelowna</td>
-              <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners.
-Hardwood flooring has since started lifting in the kitchen. Insurer advised
-homeowner to call us.</td>
+              <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners. Hardwood flooring has since started lifting in the kitchen. Insurer advised homeowner to call us.</td>
               <td class="td-days age-ok">4d</td>
             </tr>
           </tbody>
@@ -412,7 +387,7 @@ homeowner to call us.</td>
 </div>
 
 <div class="footer">
-  Refreshed daily at 4:15 PM &nbsp;&middot;&nbsp; Winmar Restoration &nbsp;&middot;&nbsp; 2026-04-04 16:20
+  Refreshed daily at 4:15 PM &nbsp;&middot;&nbsp; Winmar Restoration &nbsp;&middot;&nbsp; 2026-04-05 16:20
 </div>
 </body>
 </html>
