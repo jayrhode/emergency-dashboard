@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winmar Emergency Dashboard â April 5, 2026</title>
+<title>Winmar Emergency Dashboard — April 5, 2026</title>
 <style>
   :root{
     --bg:#0f172a;--surf:#1e293b;--surf2:#263346;--bdr:#334155;
@@ -110,8 +110,6 @@
 </style>
 </head>
 <body>
-
-<!-- Password Gate -->
 <div id="gate">
   <div class="gate-box">
     <div class="gate-logo">Winmar <em>Emergency</em></div>
@@ -121,7 +119,6 @@
     <div class="gate-err" id="pwErr">Incorrect password. Try again.</div>
   </div>
 </div>
-
 <script>
 (function(){
   if(sessionStorage.getItem('emDash')==='ok'){
@@ -140,25 +137,23 @@
   };
 })();
 </script>
-
 <div class="topbar">
   <div class="logo">Winmar <em>Emergency</em> Dashboard</div>
   <div class="report-meta">
     Report date: April 5, 2026 &nbsp;&middot;&nbsp; 11 active files<br>
-    <span style="font-size:11px;opacity:.7">Updated 2026-04-05 16:20</span>
+    <span style="font-size:11px;opacity:.7">Updated 2026-04-06 16:20</span>
   </div>
 </div>
-
 <div class="kpis">
   <div class="kpi k-new">
     <div class="kpi-lbl">New Today</div>
     <div class="kpi-num">0</div>
-    <div class="kpi-sub">First appearance in today&#x27;s report</div>
+    <div class="kpi-sub">First appearance in today's report</div>
   </div>
   <div class="kpi k-progress">
     <div class="kpi-lbl">In Progress</div>
     <div class="kpi-num">11</div>
-    <div class="kpi-sub">Active jobs on today&#x27;s report</div>
+    <div class="kpi-sub">Active jobs on today's report</div>
   </div>
   <div class="kpi k-month">
     <div class="kpi-lbl">Total This Month</div>
@@ -171,20 +166,18 @@
     <div class="kpi-sub">Resolved and removed this month</div>
   </div>
 </div>
-
 <div class="layout">
   <nav class="sidebar">
     <div class="side-title">Estimators</div>
-
-    <a href="#Jaime_Lynn_Oliver" class="nav-pill" style="--pill-color:#2563EB;">
-      <span class="nav-init">JO</span>
-      <span class="nav-name">Jaime-Lynn Oliver</span>
-      <span class="nav-ct">3</span>
-    </a>
-    <a href="#James_Appleton" class="nav-pill" style="--pill-color:#7C3AED;">
+    <a href="#James_Appleton" class="nav-pill" style="--pill-color:#2563EB;">
       <span class="nav-init">JA</span>
       <span class="nav-name">James Appleton</span>
       <span class="nav-ct">1</span>
+    </a>
+    <a href="#Jaime_Lynn_Oliver" class="nav-pill" style="--pill-color:#7C3AED;">
+      <span class="nav-init">JO</span>
+      <span class="nav-name">Jaime-Lynn Oliver</span>
+      <span class="nav-ct">3</span>
     </a>
     <a href="#Janessa_Brown" class="nav-pill" style="--pill-color:#059669;">
       <span class="nav-init">JB</span>
@@ -202,53 +195,9 @@
       <span class="nav-ct">3</span>
     </a>
   </nav>
-
   <div class="feed">
-
-    <!-- Jaime-Lynn Oliver â 3 jobs -->
-    <section class="est-card" id="Jaime_Lynn_Oliver">
-      <div class="card-hdr" style="--cc:#2563EB;">
-        <div class="avatar">JO</div>
-        <div>
-          <div class="card-name">Jaime-Lynn Oliver</div>
-          <div class="card-sub">3 active jobs</div>
-        </div>
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr>
-            <th>Job #</th><th>Customer</th><th>Location</th>
-            <th>Description</th><th>Age</th>
-          </tr></thead>
-          <tbody>
-            <tr>
-              <td class="td-job">10592E</td>
-              <td>SD23 Central Secondary School</td>
-              <td class="td-loc">1825 Richter St, Kelowna</td>
-              <td class="td-desc">Flood crawlspace in gym</td>
-              <td class="td-days age-critical">151d</td>
-            </tr>
-            <tr>
-              <td class="td-job">10740E</td>
-              <td>SD23 - Glenrosa Middle School</td>
-              <td class="td-loc">2974 Glen Abbey Pl, West Kelowna</td>
-              <td class="td-desc">Roof leak into library ceiling.</td>
-              <td class="td-days age-ok">29d</td>
-            </tr>
-            <tr>
-              <td class="td-job">10760ISP</td>
-              <td>0927625 B.C. Ltd.</td>
-              <td class="td-loc">1336 Sutherland Avenue, Kelowna</td>
-              <td class="td-desc">Upper level plumbing stack leaked within wall, hit bottom plate, leaked out into lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
-              <td class="td-days age-ok">2d</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <!-- James Appleton â 1 job -->
     <section class="est-card" id="James_Appleton">
-      <div class="card-hdr" style="--cc:#7C3AED;">
+      <div class="card-hdr" style="--cc:#2563EB;">
         <div class="avatar">JA</div>
         <div>
           <div class="card-name">James Appleton</div>
@@ -267,13 +216,52 @@
               <td>Anthem Properties</td>
               <td class="td-loc">3031 Louie Drive, Westbank</td>
               <td class="td-desc">Building owners to the Arby&#x27;s fire 10726</td>
-              <td class="td-days age-ok">18d</td>
+              <td class="td-days age-ok">19d</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
-    <!-- Janessa Brown â 3 jobs -->
+    <section class="est-card" id="Jaime_Lynn_Oliver">
+      <div class="card-hdr" style="--cc:#7C3AED;">
+        <div class="avatar">JO</div>
+        <div>
+          <div class="card-name">Jaime-Lynn Oliver</div>
+          <div class="card-sub">3 active jobs</div>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th>Job #</th><th>Customer</th><th>Location</th>
+            <th>Description</th><th>Age</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td class="td-job">10592E</td>
+              <td>SD23 Central Secondary School</td>
+              <td class="td-loc">1825 Richter St, Kelowna</td>
+              <td class="td-desc">Flood crawlspace in gym</td>
+              <td class="td-days age-critical">152d</td>
+            </tr>
+            <tr>
+              <td class="td-job">10740E</td>
+              <td>SD23 - Glenrosa Middle School</td>
+              <td class="td-loc">2974 Glen Abbey Pl, West Kelowna</td>
+              <td class="td-desc">Roof leak into library ceiling.</td>
+              <td class="td-days age-warning">30d</td>
+            </tr>
+            <tr>
+              <td class="td-job">10760ISP</td>
+              <td>0927625 B.C. Ltd.</td>
+              <td class="td-loc">1336 Sutherland Avenue, Kelowna</td>
+              <td class="td-desc">Upper level plumbing stack leaked within wall, hit bottom plate, leaked out into lower unit onto laminate floor. Sewer line repaired, wall opened up.</td>
+              <td class="td-days age-ok">2d</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
     <section class="est-card" id="Janessa_Brown">
       <div class="card-hdr" style="--cc:#059669;">
         <div class="avatar">JB</div>
@@ -294,27 +282,26 @@
               <td>Jones, Wade and Claudette</td>
               <td class="td-loc">106 - 2070 Boucherie Road, Westbank</td>
               <td class="td-desc">Dishwasher leak. Damage to flooring.</td>
-              <td class="td-days age-warning">52d</td>
+              <td class="td-days age-ok">53d</td>
             </tr>
             <tr>
               <td class="td-job">10749E</td>
               <td>Hapke, Clayton</td>
               <td class="td-loc">304-1093 Sunset Drive, Kelowna</td>
               <td class="td-desc">Water leak</td>
-              <td class="td-days age-ok">23d</td>
+              <td class="td-days age-ok">24d</td>
             </tr>
             <tr>
               <td class="td-job">10765E</td>
               <td>Patrick, Darin</td>
               <td class="td-loc">214-1093 Sunset Drive, Kelowna</td>
               <td class="td-desc">Water leak - Source is a supply issue from upstairs unit #314</td>
-              <td class="td-days age-ok">8d</td>
+              <td class="td-days age-ok">9d</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
-    <!-- Sandy Rehaume â 1 job -->
     <section class="est-card" id="Sandy_Rehaume">
       <div class="card-hdr" style="--cc:#D97706;">
         <div class="avatar">SR</div>
@@ -334,14 +321,13 @@
               <td class="td-job">10771-EMG</td>
               <td>McCaw, Darlene</td>
               <td class="td-loc">209 - 665 Cook Road, Kelowna</td>
-              <td class="td-desc">water escape from furnace/ac line saturation of wood floor in laundry room and unfinished crawlspace below. Requesting emergency services</td>
-              <td class="td-days age-ok">1d</td>
+              <td class="td-desc">Water escape from furnace/ac line saturation of wood floor in laundry room and unfinished crawlspace below. Requesting emergency services</td>
+              <td class="td-days age-ok">2d</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
-    <!-- Tyler Helms â 3 jobs -->
     <section class="est-card" id="Tyler_Helms">
       <div class="card-hdr" style="--cc:#DC2626;">
         <div class="avatar">TH</div>
@@ -361,22 +347,22 @@
               <td class="td-job">10718E</td>
               <td>Glenvalley KAS3850</td>
               <td class="td-loc">70-600 Boynton Place, Kelowna</td>
-              <td class="td-desc">active water leak half way up the staircase. Schedule for attendance within business hours Tuesday morning</td>
-              <td class="td-days age-warning">46d</td>
+              <td class="td-desc">Active water leak half way up the staircase. Schedule for attendance within business hours Tuesday morning</td>
+              <td class="td-days age-ok">47d</td>
             </tr>
             <tr>
               <td class="td-job">10764E</td>
               <td>Swecera, Bren</td>
               <td class="td-loc">107 - 515 Wren Place, Kelowna</td>
               <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners. Hardwood flooring has since started lifting in the kitchen. Insurer advised homeowner to call us.</td>
-              <td class="td-days age-ok">10d</td>
+              <td class="td-days age-ok">11d</td>
             </tr>
             <tr>
               <td class="td-job">10764R</td>
               <td>Swecera, Bren</td>
               <td class="td-loc">107 - 515 Wren Place, Kelowna</td>
               <td class="td-desc">Dishwasher leak occurred in the summer and was cleaned up by homeowners. Hardwood flooring has since started lifting in the kitchen. Insurer advised homeowner to call us.</td>
-              <td class="td-days age-ok">4d</td>
+              <td class="td-days age-ok">5d</td>
             </tr>
           </tbody>
         </table>
@@ -385,9 +371,8 @@
 
   </div>
 </div>
-
 <div class="footer">
-  Refreshed daily at 4:15 PM &nbsp;&middot;&nbsp; Winmar Restoration &nbsp;&middot;&nbsp; 2026-04-05 16:20
+  Refreshed daily at 4:15 PM &nbsp;&middot;&nbsp; Winmar Restoration &nbsp;&middot;&nbsp; 2026-04-06 16:20
 </div>
 </body>
 </html>
