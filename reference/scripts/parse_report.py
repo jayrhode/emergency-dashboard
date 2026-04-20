@@ -24,11 +24,20 @@ SUPABASE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 
 
 def find_latest_pdf():
-    """Return the most recent PDF by filename date stamp."""
-    pdfs = sorted(glob.glob(str(REPORT_DIR / "*.pdf")))
+    """Return the most recent readable PDF by filename date stamp.
+    Falls back to the most recent readable file if the latest is a
+    cloud-only OneDrive placeholder (FUSE errno 22)."""
+    pdfs = sorted(glob.glob(str(REPORT_DIR / "*.pdf")), reverse=True)
     if not pdfs:
         raise FileNotFoundError(f"No PDFs found in {REPORT_DIR}")
-    return pdfs[-1]
+    for pdf_path in pdfs:
+        try:
+            with open(pdf_path, "rb") as f:
+                f.read(4)  # probe readability
+            return pdf_path
+        except OSError:
+            print(f"Skipping unreadable (cloud placeholder?): {os.path.basename(pdf_path)}")
+    raise FileNotFoundError(f"No readable PDFs found in {REPORT_DIR}")
 
 
 def extract_jobs(pdf_path: str) -> list[dict]:

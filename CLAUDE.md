@@ -25,7 +25,7 @@ Live dashboard showing all active Winmar emergency jobs. Auto-refreshes daily fr
 
 ## Scheduled Automation
 - **Task:** `emergency-dashboard-update`
-- **Schedule:** Daily at 4:15 PM
+- **Schedule:** Daily at 5:00 PM
 - **Skill location:** `Claude/Scheduled/emergency-dashboard-update/SKILL.md`
 - ⚠️ See session-log.md for current path issue with Python scripts
 

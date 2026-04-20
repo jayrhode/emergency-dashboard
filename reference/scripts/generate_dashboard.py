@@ -360,7 +360,7 @@ def build_html(active_jobs: list, snapshot: dict, new_job_numbers: list, report_
 </div>
 
 <div class="footer">
-  Refreshed daily at 4:15 PM &nbsp;&middot;&nbsp; Winmar Restoration &nbsp;&middot;&nbsp; {now_str}
+  Refreshed daily at 5:00 PM &nbsp;&middot;&nbsp; Winmar Restoration &nbsp;&middot;&nbsp; {now_str}
 </div>
 </body>
 </html>'''
